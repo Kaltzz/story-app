@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Story Explorer SPA</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous"/>
+  <meta name="view-transition" content="same-origin" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+  <header>
+    <h1>Story Explorer</h1>
+    <nav>
+      <a href="#/">Beranda</a>
+      <a href="#/tambah">Tambah Cerita</a>
+      <span id="auth-nav">
+        <a href="#/login">Login</a>
+        <a href="#/register">Register</a>
+      </span>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <section id="app-view"></section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Story Explorer</p>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>
