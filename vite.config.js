@@ -18,7 +18,7 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
     },
   },
-  base: '/story-app/',
+  base: '/',  // Ubah ini dari '/story-app/' menjadi '/'
   server: {
     // Konfigurasi untuk WebSocket
     host: true, // Mengizinkan akses dari network
