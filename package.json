@@ -1,18 +1,22 @@
 {
-  "name": "starter-project-with-vite",
-  "private": true,
-  "version": "0.0.0",
-  "type": "module",
+  "name": "story-app",
+  "version": "1.0.0",
+  "description": "Story App with PWA and Push Notification",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vite build && gh-pages -d dist"
+  },
+  "homepage": "https://kaltzz.github.io/story-app",
+  "dependencies": {
+    "idb": "^7.1.1",
+    "leaflet": "^1.9.4",
+    "vite-plugin-pwa": "^1.0.0",
+    "workbox-window": "^7.3.0"
   },
   "devDependencies": {
-    "vite": "^6.2.0"
-  },
-  "dependencies": {
-    "idb": "^8.0.3",
-    "leaflet": "^1.9.4"
+    "gh-pages": "^6.0.0",
+    "vite": "^5.0.0"
   }
 }

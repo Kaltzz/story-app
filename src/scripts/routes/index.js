@@ -6,8 +6,7 @@ import { initLoginPage } from '../pages/auth/init-login.js';
 import { showRegister } from '../pages/auth/init-register.js';
 import { FormPresenter } from '../pages/about/form-presenter.js';
 import FormView from '../pages/about/form-view.js';
-
-let currentPresenter = null; 
+import SavedStories from '../pages/saved/saved-stories.js';
 
 const routes = {
   '/': async () => {
@@ -34,7 +33,8 @@ const routes = {
   '/register': () => {
     destroyCurrentPresenter();
     showRegister();
-  }
+  },
+  '/saved': SavedStories,
 };
 
 function destroyCurrentPresenter() {
