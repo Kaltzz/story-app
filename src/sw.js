@@ -10,14 +10,12 @@ const urlsToCache = [
   '/icons/icon-512x512.png'
 ];
 
-// Simpan app shell saat install
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
   );
 });
 
-// Hapus cache lama saat activate
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then(keys =>
@@ -28,11 +26,9 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch dengan fallback
 self.addEventListener('fetch', (event) => {
-  // Skip permintaan chrome-extension, WebSocket, dan skema tidak didukung
   if (
-    !event.request.url.startsWith('http') || // Hanya tangani skema HTTP/HTTPS
+    !event.request.url.startsWith('http') || // hanya tangani HTTP/HTTPS
     event.request.url.startsWith('chrome-extension://') ||
     event.request.url.startsWith('ws://') ||
     event.request.url.startsWith('wss://')
@@ -46,7 +42,6 @@ self.addEventListener('fetch', (event) => {
 
       return fetch(event.request.clone())
         .then((response) => {
-          // Validasi respons
           if (
             !response ||
             response.status !== 200 ||
@@ -56,28 +51,23 @@ self.addEventListener('fetch', (event) => {
             return response;
           }
 
-          // Cache respons yang valid
           const responseToCache = response.clone();
-          caches.open(CACHE_NAME)
-            .then((cache) => {
-              cache.put(event.request, responseToCache);
-            })
-            .catch((err) => {
-              console.error('Cache put error:', err);
-            });
+          if (event.request.url.startsWith('http')) {
+            caches.open(CACHE_NAME)
+              .then((cache) => cache.put(event.request, responseToCache))
+              .catch((err) => console.error('Cache put error:', err));
+          }
 
           return response;
         })
         .catch((error) => {
           console.error('Fetch error:', error);
-          // Jika offline dan ada di cache, coba ambil dari cache
           return caches.match(event.request);
         });
     })
   );
 });
 
-// Handle push notification
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'No payload',

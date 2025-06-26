@@ -5,14 +5,9 @@ const DATABASE_VERSION = 1;
 
 const db = openDB(DATABASE_NAME, DATABASE_VERSION, {
   upgrade(database, oldVersion, newVersion) {
-    // Jika database baru dibuat
     if (oldVersion === 0) {
       database.createObjectStore('stories', { keyPath: 'id' });
       database.createObjectStore('liked-stories', { keyPath: 'id' });
-    }
-    // Untuk upgrade di masa depan
-    if (oldVersion < 1) {
-      // Tambahkan migrasi jika diperlukan
     }
   },
 });
