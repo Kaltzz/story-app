@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import { IDBHelper } from '../../data/idb-helper.js';
+
 
 export default class HomeView {
   constructor() {
