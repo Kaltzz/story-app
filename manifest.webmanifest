@@ -1,0 +1,1 @@
+{"name":"Story Explorer","short_name":"StoryApp","description":"Story Explorer Application","start_url":"/","display":"standalone","background_color":"#ffffff","theme_color":"#ffffff","lang":"en","scope":"/","icons":[{"src":"icons/icon-72x72.png","sizes":"72x72","type":"image/png"},{"src":"icons/icon-512x512.png","sizes":"512x512","type":"image/png"}]}
