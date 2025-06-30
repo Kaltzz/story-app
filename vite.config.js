@@ -1,48 +1,27 @@
 import { defineConfig } from 'vite';
-import { resolve } from 'path';
 import { VitePWA } from 'vite-plugin-pwa';
-import dns from 'dns';
-
-// Untuk mengatasi masalah WebSocket di localhost
-dns.setDefaultResultOrder('verbatim');
 
 export default defineConfig({
-  root: resolve(__dirname, 'src'),
-  publicDir: resolve(__dirname, 'src', 'public'),
+  // Tidak perlu 'root' atau 'publicDir' lagi, Vite akan menanganinya secara otomatis
   build: {
-    outDir: resolve(__dirname, 'dist'),
+    outDir: 'dist',
     emptyOutDir: true,
-  },
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, 'src'),
-    },
-  },
-  base: '/',  // Ubah ini dari '/story-app/' menjadi '/'
-  server: {
-    // Konfigurasi untuk WebSocket
-    host: true, // Mengizinkan akses dari network
-    hmr: {
-      protocol: 'ws',
-      host: 'localhost',
-      port: 5173,
-      clientPort: 5173 // Tambahkan ini untuk memastikan client menggunakan port yang sama
-    }
   },
   plugins: [
     VitePWA({
+      strategies: 'generateSW',
       registerType: 'autoUpdate',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg}'],
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg}'],
         runtimeCaching: [
           {
-            urlPattern: new RegExp('^https://story-api\\.dicoding\\.dev/'),
+            urlPattern: /^https:\/\/story-api\.dicoding\.dev\//,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
               expiration: {
                 maxEntries: 100,
-                maxAgeSeconds: 72 * 60 * 60, // 72 jam
+                maxAgeSeconds: 72 * 60 * 60, // 3 hari
               },
             },
           },
@@ -55,11 +34,19 @@ export default defineConfig({
         theme_color: '#ffffff',
         icons: [
           {
-            src: 'favicon.png',
-            sizes: '192x192',
+            src: 'icons/icon-72x72.png', // Path ini sekarang sudah benar
+            sizes: '72x72',
+            type: 'image/png',
+          },
+          {
+            src: 'icons/icon-512x512.png', // Path ini sekarang sudah benar
+            sizes: '512x512',
             type: 'image/png',
           },
         ],
+      },
+      devOptions: {
+        enabled: false,
       },
     }),
   ],

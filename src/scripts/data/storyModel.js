@@ -34,7 +34,9 @@ export async function getStories() {
       throw new Error(json.message);
     }
 
+    // --- INI PERBAIKANNYA ---
     return json.listStory.map(story => ({
+      id: story.id, // <-- SERTAKAN ID DI SINI
       title: story.name,
       description: story.description,
       author: story.name,
@@ -43,6 +45,8 @@ export async function getStories() {
       lat: story.lat,
       lng: story.lon
     }));
+    // -----------------------
+
   } catch (err) {
     console.error('Gagal memuat data:', err);
     throw err; // Re-throw untuk ditangani oleh presenter

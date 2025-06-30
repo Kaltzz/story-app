@@ -26,35 +26,20 @@ export default class HomeView {
     const storyList = document.getElementById('story-list');
     storyList.innerHTML = stories.map(story => `
       <article class="story-card">
-        <img src="${story.imageUrl}" alt="Gambar untuk cerita ${story.title}" class="story-image">
-        <h3>${story.title}</h3>
-        <p class="author">Oleh: ${story.author}</p>
+        <img src="${story.imageUrl || story.photoUrl}" alt="Gambar untuk cerita ${story.title || story.name}" class="story-image">
+        <h3>${story.title || story.name}</h3>
+        <p class="author">Oleh: ${story.author || story.name}</p>
         <p class="description">${story.description}</p>
         <p class="date">Dibuat: ${new Date(story.createdAt).toLocaleDateString('id-ID', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
+          year: 'numeric', month: 'long', day: 'numeric'
         })}</p>
-        <button data-id="${story.id}" class="save-story">Simpan Offline</button>
+        <div class="story-actions">
+          <button class="btn-save" data-id="${story.id}">Simpan untuk Offline</button>
+        </div>
       </article>
     `).join('');
-
-    this._setupSaveListener();
   }
 
-  _setupSaveListener() {
-    const list = document.getElementById('story-list');
-    list.addEventListener('click', async (e) => {
-      if (e.target.classList.contains('save-story')) {
-        const id = e.target.dataset.id;
-        const story = this.stories.find(s => s.id === id);
-        if (story) {
-          await IDBHelper.saveStory(story);
-          alert('Cerita berhasil disimpan ke offline');
-        }
-      }
-    });
-  }
 
   initMap(stories) {
     const mapContainer = document.getElementById('story-map');
